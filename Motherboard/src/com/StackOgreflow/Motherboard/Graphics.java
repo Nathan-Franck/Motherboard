@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.PerspectiveCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Matrix4;
 
@@ -12,11 +13,12 @@ import com.badlogic.gdx.math.Matrix4;
  * Created by nathan on 25/03/14.
  */
 public class Graphics {
-    private OrthographicCamera camera;
+    private PerspectiveCamera camera;
     private SpriteBatch batch = new SpriteBatch();
     private Color backgroundColor = Color.BLACK;
     private float width;
     private float height;
+
     Matrix4 pixelSpace;
     public Graphics(){
 
@@ -43,7 +45,7 @@ public class Graphics {
         return this;
     }
     public void recalculate(){
-        camera = new OrthographicCamera(1, height/width);
+        camera = new PerspectiveCamera(90, 1, height/width);
         pixelSpace = new Matrix4().setToOrtho2D(0, 0, width, height);
     }
     public Graphics setBackgroundColor(Color color){
@@ -65,6 +67,7 @@ public class Graphics {
 
     public void renderSprites(Entity ent){
         batch.setProjectionMatrix(camera.combined);
+        batch.getTransformMatrix().idt().translate(0, 0, -1);
         batch.begin();
         ent.drawSprite(batch);
         batch.end();

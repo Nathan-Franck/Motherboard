@@ -8,9 +8,9 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
  */
 public class PhysicsEntity extends Container{
 	
-	protected Vector2 velocity;
-	protected Vector2 acceleration;
-	protected float radius;
+	protected Vector2 velocity = new Vector2(0, 0);
+	protected Vector2 acceleration = new Vector2(0, 0);
+	protected float radius = 1;
 	
 	public PhysicsEntity(){
 		super();
@@ -54,9 +54,6 @@ public class PhysicsEntity extends Container{
 			return true;
 		} 
 		return false;
-	}
-	
-	public void drawSprite(SpriteBatch batch){
 	}
 	
 	public void onCollide(){

@@ -30,12 +30,14 @@ public class Container extends Entity {
 		for (int i = 0; i < children.size(); i ++){
 			children.get(i).drawSprite(batch);
 		}
+        super.drawSprite(batch);
 	}
 
     public void drawText(SpriteBatch batch){
         for (int i = 0; i < children.size(); i ++){
             children.get(i).drawText(batch);
         }
+        super.drawText(batch);
     }
 	
 	public void destroy(){

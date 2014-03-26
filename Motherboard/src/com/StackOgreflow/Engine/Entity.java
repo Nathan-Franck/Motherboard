@@ -8,11 +8,10 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 
 public class Entity {
-	//public static ArrayList<Entity> entities = new ArrayList<Entity>();
 	public Container parent;
-    protected Vector2 position;
-    protected float rotation;
-    protected float scale;
+    protected Vector2 position = new Vector2(0, 0);
+    protected float rotation = 0;
+    protected float scale = 1;
     protected Color color = new Color(1, 1, 1, 1);
 	private boolean destroyed = false;
     protected Sprite sprite;
@@ -74,6 +73,7 @@ public class Entity {
 	public void drawSprite(SpriteBatch batch){
         if (sprite == null) return;
         Vector2 absPos = worldPosition();
+        sprite.setScale(scale);
         sprite.setPosition(absPos.x - sprite.getWidth() / 2.0f, absPos.y - sprite.getHeight() / 2.0f);
         sprite.setOrigin(sprite.getWidth() / 2.0f, sprite.getHeight() / 2.0f);
         sprite.setRotation(rotation);
