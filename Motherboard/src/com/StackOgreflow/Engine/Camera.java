@@ -1,10 +1,8 @@
-package com.StackOgreflow.Motherboard;
+package com.StackOgreflow.Engine;
 
-import com.StackOgreflow.Engine.Entity;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL10;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.PerspectiveCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Matrix4;
@@ -12,18 +10,19 @@ import com.badlogic.gdx.math.Matrix4;
 /**
  * Created by nathan on 25/03/14.
  */
-public class Graphics {
+public class Camera extends Entity{
     private PerspectiveCamera camera;
     private SpriteBatch batch = new SpriteBatch();
     private Color backgroundColor = Color.BLACK;
     private float width;
     private float height;
+    private float depth;
 
     Matrix4 pixelSpace;
-    public Graphics(){
+    public Camera(){
 
     }
-    public Graphics(float width, float height){
+    public Camera(float width, float height){
         super();
         this.width = width;
         this.height = height;
@@ -34,12 +33,12 @@ public class Graphics {
     public float getHeight(){
         return height;
     }
-    public Graphics setWidth(float width){
+    public Camera setWidth(float width){
         this.width = width;
         recalculate();
         return this;
     }
-    public Graphics setHeight(float height){
+    public Camera setHeight(float height){
         this.height = height;
         recalculate();
         return this;
@@ -48,12 +47,16 @@ public class Graphics {
         camera = new PerspectiveCamera(90, 1, height/width);
         pixelSpace = new Matrix4().setToOrtho2D(0, 0, width, height);
     }
-    public Graphics setBackgroundColor(Color color){
+    public Camera setBackgroundColor(Color color){
         backgroundColor = color;
         return this;
     }
     public void destroy(){
         batch.dispose();
+    }
+    public void update(){
+        position.x += 1*Time.deltaTime();
+        rotation += .1;
     }
     public void render(Entity ent){
         renderBackground();
@@ -67,7 +70,7 @@ public class Graphics {
 
     public void renderSprites(Entity ent){
         batch.setProjectionMatrix(camera.combined);
-        batch.getTransformMatrix().idt().translate(0, 0, -1);
+        batch.getTransformMatrix().idt().rotate(0, 0, -1, -rotation).translate(-position.x, -position.y, -depth);
         batch.begin();
         ent.drawSprite(batch);
         batch.end();
