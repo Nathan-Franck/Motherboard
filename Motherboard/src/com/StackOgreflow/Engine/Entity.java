@@ -73,7 +73,7 @@ public class Entity {
 	public void drawSprite(SpriteBatch batch){
         if (sprite == null) return;
         Vector2 absPos = worldPosition();
-        sprite.setScale(scale);
+        sprite.setScale(scale / sprite.getTexture().getWidth());
         sprite.setPosition(absPos.x - sprite.getWidth() / 2.0f, absPos.y - sprite.getHeight() / 2.0f);
         sprite.setOrigin(sprite.getWidth() / 2.0f, sprite.getHeight() / 2.0f);
         sprite.setRotation(rotation);

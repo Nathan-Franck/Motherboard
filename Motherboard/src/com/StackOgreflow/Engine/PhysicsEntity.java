@@ -9,7 +9,9 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class PhysicsEntity extends Container{
 	
 	protected Vector2 velocity = new Vector2(0, 0);
+    protected float rotationVelocity = 0;
 	protected Vector2 acceleration = new Vector2(0, 0);
+    protected float rotationAcceleration = 0;
 	protected float radius = 1;
 	
 	public PhysicsEntity(){
@@ -21,8 +23,18 @@ public class PhysicsEntity extends Container{
         return this;
     }
 
+    public PhysicsEntity setRotationVelocity(float rotationVelocity){
+        this.rotationVelocity = rotationVelocity;
+        return this;
+    }
+
     public PhysicsEntity setAcceleration(Vector2 acceleration){
         this.acceleration = acceleration;
+        return this;
+    }
+
+    public PhysicsEntity setRotationAcceleration(float rotationAcceleration){
+        this.rotationAcceleration = rotationAcceleration;
         return this;
     }
 
@@ -34,7 +46,9 @@ public class PhysicsEntity extends Container{
 	public void update(){
 		// Movement and Momentum
 		position.add(velocity.cpy().scl(Time.deltaTime()));
+        rotation += rotationVelocity*Time.deltaTime();
 		velocity.add(acceleration.cpy().scl(Time.deltaTime()));
+        rotationVelocity += rotationAcceleration*Time.deltaTime();
         //superclass updating
         super.update();
 	}
@@ -52,7 +66,7 @@ public class PhysicsEntity extends Container{
 			onCollide();
 			other.onCollide();
 			return true;
-		} 
+		}
 		return false;
 	}
 	

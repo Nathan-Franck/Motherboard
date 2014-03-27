@@ -16,6 +16,7 @@ import java.util.ArrayList;
 public class World extends Container {
     public World() {
         super();
-        add(new Debris());
+        for (int i = 9; i >= 0; i --)
+            add(new Layer().setDepth(-1-i));
     }
 }
